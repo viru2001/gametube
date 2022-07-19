@@ -6,7 +6,7 @@ import Typography from "@mui/material/Typography";
 import Avatar from "@mui/material/Avatar";
 import Box from "@mui/material/Box";
 import { KebabMenu } from "../index";
-import { useDrawer } from "../../context/DrawerContext";
+import { useDrawer } from "../../context/";
 const VideoCard = () => {
   const [isOpen] = useDrawer();
   return (

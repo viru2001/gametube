@@ -10,7 +10,7 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import { AppBar } from "../index";
 import "./Drawer.css";
-import { useDrawer } from "../../context/DrawerContext";
+import { useDrawer } from "../../context/";
 
 import { useLocation, useNavigate } from "react-router";
 
@@ -55,7 +55,6 @@ const MyDrawer = styled(MuiDrawer, {
 }));
 
 const Drawer = ({ content }) => {
-
   const [isOpen, setIsOpen] = useDrawer();
   const handleDrawerOpen = () => {
     setIsOpen(true);
@@ -68,7 +67,7 @@ const Drawer = ({ content }) => {
   const location = useLocation().pathname;
   console.log(location);
   const navigate = useNavigate();
-  
+
   return (
     <Box sx={{ display: "flex" }}>
       <AppBar
@@ -107,7 +106,11 @@ const Drawer = ({ content }) => {
                   }}
                 >
                   <Icon
-                    className= {location === url ? "material-icons-filled" :"material-icons-outlined"}
+                    className={
+                      location === url
+                        ? "material-icons-filled"
+                        : "material-icons-outlined"
+                    }
                     sx={{
                       color:
                         location === url ? "text.secondary" : "text.primary",

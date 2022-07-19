@@ -13,18 +13,42 @@ import VisibilityOff from "@mui/icons-material/VisibilityOff";
 
 import "./Login.css";
 import { CssTextField } from "../../components";
+import { useAuth } from "../../context";
+import { loginService } from "../../services";
 
 const Login = () => {
+  const [user, setUser] = useState({
+    email: "",
+    password: "",
+  });
+  const { setAuth } = useAuth();
   const navigate = useNavigate();
-  const handleSubmit = event => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
-    navigate("/");
+
+  const loginFormSubmitHandler = async user => {
+    const [name, authToken] = await loginService(user);
+    if (authToken !== undefined) {
+      localStorage.setItem("AUTH_TOKEN", authToken);
+      localStorage.setItem("username", name);
+      setAuth(auth => ({
+        ...auth,
+        status: true,
+        token: authToken,
+        username: name,
+      }));
+
+      navigate("/");
+    }
   };
+
+  // const handleSubmit = event => {
+  //   event.preventDefault();
+  //   const data = new FormData(event.currentTarget);
+  //   console.log({
+  //     email: data.get("email"),
+  //     password: data.get("password"),
+  //   });
+  //   navigate("/");
+  // };
 
   const [showPassword, setShowPassword] = useState(false);
 
@@ -61,7 +85,10 @@ const Login = () => {
           </Typography>
           <Box
             component="form"
-            onSubmit={handleSubmit}
+            onSubmit={e => {
+              e.preventDefault();
+              loginFormSubmitHandler(user);
+            }}
             noValidate
             sx={{ mt: 1 }}
           >
@@ -75,6 +102,7 @@ const Login = () => {
               autoComplete="email"
               autoFocus
               color="secondary"
+              onChange={e => setUser({ ...user, email: e.target.value })}
             />
             <CssTextField
               margin="normal"
@@ -100,6 +128,7 @@ const Login = () => {
                   </InputAdornment>
                 ),
               }}
+              onChange={e => setUser({ ...user, password: e.target.value })}
             />
             <Button
               type="submit"

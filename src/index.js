@@ -6,7 +6,7 @@ import { ThemeProvider, StyledEngineProvider } from "@mui/material/styles";
 import { BrowserRouter as Router } from "react-router-dom";
 
 import { theme } from "./theme";
-import { DrawerProvider } from "./frontend/context/DrawerContext";
+import { DrawerProvider, AuthProvider } from "./frontend/context/";
 
 const container = document.getElementById("root");
 const root = createRoot(container);
@@ -17,13 +17,15 @@ makeServer();
 root.render(
   <React.StrictMode>
     <Router>
-      <DrawerProvider>
-        <StyledEngineProvider injectFirst>
-          <ThemeProvider theme={theme}>
-            <App />
-          </ThemeProvider>
-        </StyledEngineProvider>
-      </DrawerProvider>
+      <AuthProvider>
+        <DrawerProvider>
+          <StyledEngineProvider injectFirst>
+            <ThemeProvider theme={theme}>
+              <App />
+            </ThemeProvider>
+          </StyledEngineProvider>
+        </DrawerProvider>
+      </AuthProvider>
     </Router>
   </React.StrictMode>
 );
