@@ -12,6 +12,8 @@ import { AppBar } from "../index";
 import "./Drawer.css";
 import { useDrawer } from "../../context/DrawerContext";
 
+import { useLocation, useNavigate } from "react-router";
+
 const drawerWidth = 200;
 
 const openedMixin = theme => ({
@@ -53,7 +55,6 @@ const MyDrawer = styled(MuiDrawer, {
 }));
 
 const Drawer = ({ content }) => {
-  // const [open, setOpen] = React.useState(true);
 
   const [isOpen, setIsOpen] = useDrawer();
   const handleDrawerOpen = () => {
@@ -63,6 +64,11 @@ const Drawer = ({ content }) => {
   const handleDrawerClose = () => {
     setIsOpen(false);
   };
+
+  const location = useLocation().pathname;
+  console.log(location);
+  const navigate = useNavigate();
+  
   return (
     <Box sx={{ display: "flex" }}>
       <AppBar
@@ -74,13 +80,18 @@ const Drawer = ({ content }) => {
         <Box sx={{ m: 4 }} />
         <List>
           {[
-            { text: "Home", icon: "home" },
-            { text: "Watch Later", icon: "watch_later" },
-            { text: "Liked Videos", icon: "thumb_up" },
-            { text: "History", icon: "history" },
-            { text: "Playlists", icon: "playlist_play" },
-          ].map(({ text, icon }, index) => (
-            <ListItem key={index} disablePadding sx={{ display: "block" }}>
+            { text: "Home", icon: "home", url: "/" },
+            { text: "Watch Later", icon: "watch_later", url: "/watch_later" },
+            { text: "Liked Videos", icon: "thumb_up", url: "/liked_videos" },
+            { text: "History", icon: "history", url: "/history" },
+            { text: "Playlists", icon: "playlist_play", url: "/playlist" },
+          ].map(({ text, icon, url }, index) => (
+            <ListItem
+              key={index}
+              disablePadding
+              sx={{ display: "block" }}
+              onClick={() => navigate(url)}
+            >
               <ListItemButton
                 sx={{
                   minHeight: 48,
@@ -95,41 +106,24 @@ const Drawer = ({ content }) => {
                     justifyContent: "center",
                   }}
                 >
-                  {index === 2 ? (
-                    <Icon
-                      className="material-icons-filled"
-                      sx={{ color: "secondary.main" }}
-                    >
-                      {icon}
-                    </Icon>
-                  ) : (
-                    <Icon
-                      className="material-icons-outlined"
-                      sx={{ color: "text.primary" }}
-                    >
-                      {icon}
-                    </Icon>
-                  )}
+                  <Icon
+                    className= {location === url ? "material-icons-filled" :"material-icons-outlined"}
+                    sx={{
+                      color:
+                        location === url ? "text.secondary" : "text.primary",
+                    }}
+                  >
+                    {icon}
+                  </Icon>
                 </ListItemIcon>
-                {index === 2 ? (
-                  <ListItemText
-                    primary={text}
-                    sx={{
-                      opacity: isOpen ? 1 : 0,
-                      fontSize: 32,
-                      color: "text.secondary",
-                    }}
-                  />
-                ) : (
-                  <ListItemText
-                    primary={text}
-                    sx={{
-                      opacity: isOpen ? 1 : 0,
-                      fontSize: 32,
-                      color: "text.primary",
-                    }}
-                  />
-                )}
+                <ListItemText
+                  primary={text}
+                  sx={{
+                    opacity: isOpen ? 1 : 0,
+                    fontSize: 32,
+                    color: location === url ? "text.secondary" : "text.primary",
+                  }}
+                />
               </ListItemButton>
             </ListItem>
           ))}
@@ -137,22 +131,6 @@ const Drawer = ({ content }) => {
       </MyDrawer>
 
       {content}
-      {/* <Box
-        component="main"
-        sx={{ flexGrow: 1, p: 3, mt: 8, backgroundColor: "primary.faint" }}
-      >
-        <Grid
-          container
-          spacing={{ xs: 2, md: 3 }}
-          // columns={{ xs: 4, sm: 8, md: 12 }}
-        >
-          {Array.from(Array(15)).map((_, index) => (
-            <Grid item xs={12} sm={6} md={3} key={index}>
-              <VideoCard />
-            </Grid>
-          ))}
-        </Grid>
-      </Box> */}
     </Box>
   );
 };
