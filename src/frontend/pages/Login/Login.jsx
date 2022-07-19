@@ -138,8 +138,8 @@ const Login = () => {
               color="secondary"
               onClick={() =>
                 loginFormSubmitHandler({
-                  email: "adarshbalika@gmail.com",
-                  password: "adarshbalika",
+                  email: "vireshfegade@gmail.com",
+                  password: "viresh123",
                 })
               }
             >

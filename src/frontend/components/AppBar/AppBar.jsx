@@ -7,7 +7,9 @@ import MuiAppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import { styled } from "@mui/material/styles";
 import { SearchBox } from "../index";
-import {  useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+
+import { useAuth } from "../../context";
 
 const MyAppBar = styled(MuiAppBar)(({ theme }) => ({
   zIndex: theme.zIndex.drawer + 1,
@@ -19,7 +21,28 @@ const MyAppBar = styled(MuiAppBar)(({ theme }) => ({
 
 const AppBar = ({ open, handleDrawerClose, handleDrawerOpen }) => {
   const navigate = useNavigate();
-  const handleLoginBtnClick = () => navigate("/login");
+  const loginHandler = () => navigate("/login");
+
+  // const {
+  //   auth: { status, username },
+  //   setAuth,
+  // } = useAuth();
+
+   const {
+     auth: { status },
+     setAuth,
+   } = useAuth();
+
+  const logoutHandler = setAuth => {
+    localStorage.removeItem("AUTH_TOKEN");
+    localStorage.removeItem("username");
+    setAuth(auth => ({
+      ...auth,
+      status: false,
+      token: null,
+      username: "",
+    }));
+  };
 
   return (
     <MyAppBar position="fixed">
@@ -49,17 +72,38 @@ const AppBar = ({ open, handleDrawerClose, handleDrawerOpen }) => {
             mr: 2,
           }}
         >
-          <Button
-            variant="contained"
-            sx={{
-              backgroundColor: "secondary.main",
-              color: "#363636",
-              ":hover": { backgroundColor: "secondary.light" },
-            }}
-            onClick={handleLoginBtnClick}
-          >
-            Login
-          </Button>
+          {status ? (
+            <>
+              <Button
+                variant="contained"
+                sx={{
+                  backgroundColor: "secondary.main",
+                  color: "#363636",
+                  ":hover": { backgroundColor: "secondary.light" },
+                }}
+                onClick={() => logoutHandler(setAuth)}
+              >
+                Logout
+              </Button>
+              {/* <Typography
+                variant="h6"
+                noWrap
+                component="div"
+              >{`Welcome ${username}`}</Typography> */}
+            </>
+          ) : (
+            <Button
+              variant="contained"
+              sx={{
+                backgroundColor: "secondary.main",
+                color: "#363636",
+                ":hover": { backgroundColor: "secondary.light" },
+              }}
+              onClick={loginHandler}
+            >
+              Login
+            </Button>
+          )}
         </Box>
       </Box>
     </MyAppBar>
