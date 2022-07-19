@@ -129,6 +129,22 @@ const Login = () => {
             >
               Login
             </Button>
+
+            <Button
+              type="submit"
+              fullWidth
+              variant="outlined"
+              sx={{ mt: 3, mb: 2 }}
+              color="secondary"
+              onClick={() =>
+                loginFormSubmitHandler({
+                  email: "adarshbalika@gmail.com",
+                  password: "adarshbalika",
+                })
+              }
+            >
+              Login as Guest
+            </Button>
             <Box
               sx={{
                 display: "flex",
