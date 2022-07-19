@@ -65,7 +65,6 @@ const Drawer = ({ content }) => {
   };
 
   const location = useLocation().pathname;
-  console.log(location);
   const navigate = useNavigate();
 
   return (
