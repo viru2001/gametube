@@ -11,7 +11,6 @@ const loginService = async ({ email, password }) => {
       email: email,
       password: password,
     });
-    console.log(firstName, encodedToken);
     return [firstName, encodedToken];
   } catch (e) {
     console.log(e);

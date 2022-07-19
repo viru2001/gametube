@@ -6,24 +6,41 @@ import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import InputAdornment from "@mui/material/InputAdornment";
 import IconButton from "@mui/material/IconButton";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 
 import { CssTextField } from "../../components";
+import { useAuth } from "../../context";
+import { signupService } from "../../services";
 
 const Signup = () => {
-  const handleSubmit = event => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
-  };
+  const { setAuth } = useAuth();
+  const navigate = useNavigate();
+  const [user, setUser] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+  });
 
+  const signupFormSubmitHandler = async user => {
+    const [name, authToken] = await signupService(user);
+    if (authToken !== undefined) {
+      localStorage.setItem("AUTH_TOKEN", authToken);
+      localStorage.setItem("username", name);
+      setAuth(auth => ({
+        ...auth,
+        status: true,
+        token: localStorage.getItem("AUTH_TOKEN"),
+        username: name,
+      }));
+      navigate("/");
+    }
+  };
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
@@ -63,8 +80,11 @@ const Signup = () => {
           <Box
             component="form"
             noValidate
-            onSubmit={handleSubmit}
             sx={{ mt: 3 }}
+            onSubmit={e => {
+              e.preventDefault();
+              signupFormSubmitHandler(user);
+            }}
           >
             <Grid container spacing={2}>
               <Grid item xs={12} sm={6}>
@@ -77,6 +97,9 @@ const Signup = () => {
                   label="First Name"
                   autoFocus
                   color="secondary"
+                  onChange={e =>
+                    setUser({ ...user, firstName: e.target.value })
+                  }
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
@@ -88,6 +111,7 @@ const Signup = () => {
                   name="lastName"
                   autoComplete="family-name"
                   color="secondary"
+                  onChange={e => setUser({ ...user, lastName: e.target.value })}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -99,6 +123,7 @@ const Signup = () => {
                   name="email"
                   autoComplete="email"
                   color="secondary"
+                  onChange={e => setUser({ ...user, email: e.target.value })}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -125,6 +150,7 @@ const Signup = () => {
                       </InputAdornment>
                     ),
                   }}
+                  onChange={e => setUser({ ...user, password: e.target.value })}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -155,6 +181,9 @@ const Signup = () => {
                       </InputAdornment>
                     ),
                   }}
+                  onChange={e =>
+                    setUser({ ...user, confirmPassword: e.target.value })
+                  }
                 />
               </Grid>
             </Grid>
