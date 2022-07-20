@@ -2,6 +2,7 @@ import React from "react";
 import { styled, alpha } from "@mui/material/styles";
 import InputBase from "@mui/material/InputBase";
 import SearchIcon from "@mui/icons-material/Search";
+import { useVideos } from "../../context";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -43,7 +44,10 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
+
 const SearchBox = () => {
+  const { videosDispatch } = useVideos();
+
   return (
     <>
       <Search sx={{ m: 1.5, width: 1000 }}>
@@ -53,6 +57,12 @@ const SearchBox = () => {
         <StyledInputBase
           placeholder="Search"
           inputProps={{ "aria-label": "search" }}
+          onChange={e => {
+            videosDispatch({
+              type: "SET_SEARCH_QUERY",
+              payload: e.target.value,
+            });
+          }}
         />
       </Search>
     </>

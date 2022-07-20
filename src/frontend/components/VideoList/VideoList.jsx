@@ -4,10 +4,10 @@ import { useEffect } from "react";
 
 import { useVideos } from "../../context";
 import { fetchVideosService, fetchCategoryService } from "../../services";
-import { getFilteredVideos } from "../../utils";
+import { getFilteredVideos, getSearchedVideos } from "../../utils";
 
 const VideoList = () => {
-  const { videos, selectedCategory, videosDispatch } = useVideos();
+  const { videos, searchQuery, selectedCategory, videosDispatch } = useVideos();
 
   useEffect(() => {
     (async () => {
@@ -34,7 +34,8 @@ const VideoList = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const filteredVideos = getFilteredVideos(videos, selectedCategory);
+  const searchedVideos = getSearchedVideos(videos, searchQuery);
+  const filteredVideos = getFilteredVideos(searchedVideos, selectedCategory);
 
   return (
     <Box

@@ -13,6 +13,8 @@ const videosReducer = (videosState, { type, payload }) => {
       return { ...videosState, categories: payload };
     case "SELECT_CATEGORY":
       return { ...videosState, selectedCategory: payload };
+    case "SET_SEARCH_QUERY":
+      return { ...videosState, searchQuery: payload };
     default:
       return videosState;
   }
