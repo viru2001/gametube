@@ -7,7 +7,7 @@ import MuiAppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import { styled } from "@mui/material/styles";
 import { SearchBox } from "../index";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 import { useAuth } from "../../context";
 
@@ -28,10 +28,10 @@ const AppBar = ({ open, handleDrawerClose, handleDrawerOpen }) => {
   //   setAuth,
   // } = useAuth();
 
-   const {
-     auth: { status },
-     setAuth,
-   } = useAuth();
+  const {
+    auth: { status },
+    setAuth,
+  } = useAuth();
 
   const logoutHandler = setAuth => {
     localStorage.removeItem("AUTH_TOKEN");
@@ -43,6 +43,8 @@ const AppBar = ({ open, handleDrawerClose, handleDrawerOpen }) => {
       username: "",
     }));
   };
+
+  const location = useLocation().pathname;
 
   return (
     <MyAppBar position="fixed">
@@ -63,7 +65,7 @@ const AppBar = ({ open, handleDrawerClose, handleDrawerOpen }) => {
             GameTube
           </Typography>
         </Toolbar>
-        <SearchBox />
+        {location === "/" ? <SearchBox /> : <></>}
 
         <Box
           sx={{
