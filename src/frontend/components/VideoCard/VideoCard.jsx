@@ -5,9 +5,18 @@ import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import Avatar from "@mui/material/Avatar";
 import Box from "@mui/material/Box";
+import Tooltip from "@mui/material/Tooltip";
 import { KebabMenu } from "../index";
 import { useDrawer } from "../../context/";
-const VideoCard = () => {
+const VideoCard = ({ video }) => {
+  const {
+    thumbnail,
+    title,
+    creatorAvatar,
+    creator,
+    views,
+  } = video;
+
   const [isOpen] = useDrawer();
   return (
     <Card
@@ -20,12 +29,12 @@ const VideoCard = () => {
       <CardMedia
         component="img"
         height="160"
-        image="https://picsum.photos/200/300"
+        image={thumbnail}
         alt="green iguana"
       />
       <CardContent>
         <Box sx={{ display: "flex" }}>
-          <Avatar alt="Exion" src="https://i.pravatar.cc/300" />
+          <Avatar alt="Exion" src={creatorAvatar} />
           <Box
             sx={{
               display: "flex",
@@ -35,15 +44,22 @@ const VideoCard = () => {
             }}
           >
             <Box sx={{ display: "flex" }}>
-              <Typography
-                gutterBottom
-                noWrap
-                variant="body3"
-                component="div"
-                sx={{ color: "text.primary" }}
-              >
-                Jareen Gets Chased By Cops in His FIRST RACE! | GTA 5 RP
-              </Typography>
+              <Tooltip title={title}>
+                <Typography
+                  gutterBottom
+                  variant="body3"
+                  sx={{
+                    color: "text.primary",
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                    display: "-webkit-box",
+                    WebkitLineClamp: "2",
+                    WebkitBoxOrient: "vertical",
+                  }}
+                >
+                  {title}
+                </Typography>
+              </Tooltip>
               <KebabMenu />
             </Box>
             <Box
@@ -54,15 +70,18 @@ const VideoCard = () => {
                 gap: "10px",
               }}
             >
-              <Typography variant="body2" sx={{ color: "text.primary" }}>
-                Exion
-              </Typography>
-              <Box sx={{ display: "flex", gap: "10px" }}>
+              {/* <Typography variant="body2" sx={{ color: "text.primary" }}>
+                {creator}
+              </Typography> */}
+              <Box sx={{ display: "flex" }}>
                 <Typography variant="body2" sx={{ color: "text.primary" }}>
-                  100K Views
+                  {creator}
                 </Typography>
-                <Typography variant="body2" sx={{ color: "text.primary" }}>
-                  2 months ago
+                <Typography
+                  variant="body2"
+                  sx={{ color: "text.primary", ml: "auto", mr: 2 }}
+                >
+                  {views}
                 </Typography>
               </Box>
             </Box>
