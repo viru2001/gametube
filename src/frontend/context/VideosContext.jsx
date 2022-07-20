@@ -20,13 +20,14 @@ const VideosProvider = ({ children }) => {
   //     }
   //   };
 
-  const { videos, searchQuery, selectedCategory } = videosState;
+  const { videos, searchQuery, categories, selectedCategory } = videosState;
 
   return (
     <VideosContext.Provider
       value={{
         videos,
         searchQuery,
+        categories,
         selectedCategory,
         videosDispatch,
       }}

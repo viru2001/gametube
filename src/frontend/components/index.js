@@ -7,3 +7,4 @@ export { VideoCard } from "./VideoCard/VideoCard";
 export { Drawer } from "./Drawer/Drawer";
 export { SearchBox } from "./SearchBox/SearchBox";
 export { AppBar } from "./AppBar/AppBar";
+export { Chips } from "./Chips/Chips";

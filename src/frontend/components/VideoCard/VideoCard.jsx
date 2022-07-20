@@ -47,7 +47,7 @@ const VideoCard = ({ video }) => {
               <Tooltip title={title}>
                 <Typography
                   gutterBottom
-                  variant="body3"
+                  variant="body2"
                   sx={{
                     color: "text.primary",
                     overflow: "hidden",
@@ -73,15 +73,15 @@ const VideoCard = ({ video }) => {
               {/* <Typography variant="body2" sx={{ color: "text.primary" }}>
                 {creator}
               </Typography> */}
-              <Box sx={{ display: "flex" }}>
+              <Box sx={{ display: "flex", mt: 1 }}>
                 <Typography variant="body2" sx={{ color: "text.primary" }}>
                   {creator}
                 </Typography>
                 <Typography
                   variant="body2"
-                  sx={{ color: "text.primary", ml: "auto", mr: 2 }}
+                  sx={{ color: "text.primary", ml: "auto", mr: 1 }}
                 >
-                  {views}
+                  {`views • ${views}`}
                 </Typography>
               </Box>
             </Box>

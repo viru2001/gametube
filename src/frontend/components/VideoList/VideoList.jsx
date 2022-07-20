@@ -1,12 +1,13 @@
-import { VideoCard } from "../index";
+import { VideoCard, Chips } from "../index";
 import { Grid, Box } from "@mui/material";
 import { useEffect } from "react";
 
 import { useVideos } from "../../context";
-import { fetchVideosService } from "../../services";
+import { fetchVideosService, fetchCategoryService } from "../../services";
+import { getFilteredVideos } from "../../utils";
 
 const VideoList = () => {
-  const { videos, videosDispatch } = useVideos();
+  const { videos, selectedCategory, videosDispatch } = useVideos();
 
   useEffect(() => {
     (async () => {
@@ -19,27 +20,40 @@ const VideoList = () => {
         console.log(e);
       }
     })();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+
+    (async () => {
+      try {
+        const {
+          data: { categories },
+        } = await fetchCategoryService();
+        videosDispatch({ type: "INIT_CATEGORIES", payload: categories });
+      } catch (e) {
+        console.log(e);
+      }
+    })();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  
+  const filteredVideos = getFilteredVideos(videos, selectedCategory);
+
   return (
     <Box
       component="main"
       sx={{
         flexGrow: 1,
         p: 3,
-        mt: 8,
+        mt: 6,
         backgroundColor: "primary.faint",
-        minHeight: "calc( 100vh - 64px )",
+        minHeight: "calc( 100vh - 48px )",
       }}
     >
+      <Chips />
       <Grid
         container
         spacing={{ xs: 2, md: 3 }}
         // columns={{ xs: 4, sm: 8, md: 12 }}
       >
-        {videos.map((video, index) => (
+        {filteredVideos.map((video, index) => (
           <Grid item xs={12} sm={6} md={3} key={index}>
             <VideoCard video={video} />
           </Grid>

@@ -131,6 +131,7 @@ const Drawer = ({ content }) => {
           ))}
         </List>
       </MyDrawer>
+      
       {/* <Box>{content}</Box> */}
       {content}
     </Box>
