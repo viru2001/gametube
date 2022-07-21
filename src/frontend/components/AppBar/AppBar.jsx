@@ -28,10 +28,10 @@ const AppBar = ({ open, handleDrawerClose, handleDrawerOpen }) => {
   //   setAuth,
   // } = useAuth();
 
-   const {
-     auth: { status },
-     setAuth,
-   } = useAuth();
+  const {
+    auth: { status, username },
+    setAuth,
+  } = useAuth();
 
   const logoutHandler = setAuth => {
     localStorage.removeItem("AUTH_TOKEN");
@@ -73,7 +73,7 @@ const AppBar = ({ open, handleDrawerClose, handleDrawerOpen }) => {
           }}
         >
           {status ? (
-            <>
+            <Box sx={{ display: "flex" ,gap:"10px"}}>
               <Button
                 variant="contained"
                 sx={{
@@ -85,12 +85,12 @@ const AppBar = ({ open, handleDrawerClose, handleDrawerOpen }) => {
               >
                 Logout
               </Button>
-              {/* <Typography
+              <Typography
                 variant="h6"
                 noWrap
                 component="div"
-              >{`Welcome ${username}`}</Typography> */}
-            </>
+              >{`Welcome ${username}`}</Typography>
+            </Box>
           ) : (
             <Button
               variant="contained"

@@ -149,6 +149,7 @@ const Login = () => {
               sx={{
                 display: "flex",
                 justifyContent: "center",
+                p: 2,
               }}
             >
               <Link to="/signup" variant="body2" className="link">

@@ -196,7 +196,7 @@ const Signup = () => {
             >
               Sign Up
             </Button>
-            <Box sx={{ display: "flex", justifyContent: "center" }}>
+            <Box sx={{ display: "flex", justifyContent: "center", p: 2 }}>
               <Link to="/login" variant="body2" className="link">
                 Already have an account? Log in
               </Link>
