@@ -1,15 +1,31 @@
 import React from "react";
-import ReactDOM from "react-dom";
-import "./index.css";
 import App from "./App";
 import { makeServer } from "./server";
+import { createRoot } from "react-dom/client";
+import { ThemeProvider, StyledEngineProvider } from "@mui/material/styles";
+import { BrowserRouter as Router } from "react-router-dom";
+
+import { theme } from "./theme";
+import { DrawerProvider, AuthProvider } from "./frontend/context/";
+
+const container = document.getElementById("root");
+const root = createRoot(container);
 
 // Call make Server
 makeServer();
 
-ReactDOM.render(
+root.render(
   <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById("root")
+    <Router>
+      <AuthProvider>
+        <DrawerProvider>
+          <StyledEngineProvider injectFirst>
+            <ThemeProvider theme={theme}>
+              <App />
+            </ThemeProvider>
+          </StyledEngineProvider>
+        </DrawerProvider>
+      </AuthProvider>
+    </Router>
+  </React.StrictMode>
 );
