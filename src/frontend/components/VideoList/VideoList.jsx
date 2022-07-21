@@ -1,10 +1,14 @@
 import { VideoCard, Chips } from "../index";
-import { Grid, Box } from "@mui/material";
+import { Grid, Box, Button } from "@mui/material";
 import { useEffect } from "react";
 
-import { useVideos, useUser } from "../../context";
+import { useVideos, useUser, useAuth } from "../../context";
 
-import { fetchVideosService, fetchCategoryService } from "../../services";
+import {
+  fetchVideosService,
+  fetchCategoryService,
+  clearHistoryService,
+} from "../../services";
 import { getFilteredVideos, getSearchedVideos } from "../../utils";
 import { useLocation } from "react-router";
 
@@ -13,7 +17,12 @@ const VideoList = () => {
 
   const {
     userState: { historyVideos },
+    userDispatch,
   } = useUser();
+
+  const {
+    auth: { token },
+  } = useAuth();
 
   let finalVideos;
 
@@ -63,6 +72,22 @@ const VideoList = () => {
       }}
     >
       {location === "/" ? <Chips /> : <></>}
+      {location === "/history" ? (
+        <Button
+          variant="contained"
+          sx={{
+            backgroundColor: "secondary.main",
+            color: "#363636",
+            ":hover": { backgroundColor: "secondary.light" },
+            mb: 2,
+          }}
+          onClick={() => clearHistoryService(token, userDispatch)}
+        >
+          Clear History
+        </Button>
+      ) : (
+        <></>
+      )}
       <Grid
         container
         spacing={{ xs: 2, md: 3 }}

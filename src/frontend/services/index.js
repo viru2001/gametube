@@ -1,3 +1,4 @@
+export { clearHistoryService } from "./HistoryServices/clearHistoryService";
 export { removeFromHistoryService } from "./HistoryServices/removeFromHistoryService";
 export { getUserHistoryService } from "./HistoryServices/getUserHistoryService";
 export { addToHistoryService } from "./HistoryServices/addToHistoryService";
