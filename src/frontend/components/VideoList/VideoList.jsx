@@ -2,12 +2,23 @@ import { VideoCard, Chips } from "../index";
 import { Grid, Box } from "@mui/material";
 import { useEffect } from "react";
 
-import { useVideos } from "../../context";
+import { useVideos, useUser } from "../../context";
+
 import { fetchVideosService, fetchCategoryService } from "../../services";
 import { getFilteredVideos, getSearchedVideos } from "../../utils";
+import { useLocation } from "react-router";
 
 const VideoList = () => {
   const { videos, searchQuery, selectedCategory, videosDispatch } = useVideos();
+
+  const {
+    userState: { historyVideos },
+    userDispatch,
+  } = useUser();
+
+  let finalVideos;
+
+  const location = useLocation().pathname;
 
   useEffect(() => {
     (async () => {
@@ -34,9 +45,13 @@ const VideoList = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const searchedVideos = getSearchedVideos(videos, searchQuery);
-  const filteredVideos = getFilteredVideos(searchedVideos, selectedCategory);
-
+  if (location === "/") {
+    const searchedVideos = getSearchedVideos(videos, searchQuery);
+    const filteredVideos = getFilteredVideos(searchedVideos, selectedCategory);
+    finalVideos = filteredVideos;
+  } else if (location === "/history") {
+    finalVideos = historyVideos;
+  }
   return (
     <Box
       component="main"
@@ -48,13 +63,13 @@ const VideoList = () => {
         minHeight: "calc( 100vh - 48px )",
       }}
     >
-      <Chips />
+      {location === "/" ? <Chips /> : <></>}
       <Grid
         container
         spacing={{ xs: 2, md: 3 }}
         // columns={{ xs: 4, sm: 8, md: 12 }}
       >
-        {filteredVideos.map((video, index) => (
+        {finalVideos.map((video, index) => (
           <Grid item xs={12} sm={6} md={3} key={index}>
             <VideoCard video={video} />
           </Grid>

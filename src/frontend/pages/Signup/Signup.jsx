@@ -19,6 +19,7 @@ import { signupService } from "../../services";
 const Signup = () => {
   const { setAuth } = useAuth();
   const navigate = useNavigate();
+
   const [user, setUser] = useState({
     firstName: "",
     lastName: "",
@@ -38,7 +39,7 @@ const Signup = () => {
         token: localStorage.getItem("AUTH_TOKEN"),
         username: name,
       }));
-      navigate("/");
+      navigate("/", { replace: true });
     }
   };
   const [showPassword, setShowPassword] = useState(false);

@@ -10,6 +10,7 @@ import {
   DrawerProvider,
   AuthProvider,
   VideosProvider,
+  UserProvider,
 } from "./frontend/context/";
 
 const container = document.getElementById("root");
@@ -22,15 +23,17 @@ root.render(
   <React.StrictMode>
     <Router>
       <AuthProvider>
-        <VideosProvider>
-          <DrawerProvider>
-            <StyledEngineProvider injectFirst>
-              <ThemeProvider theme={theme}>
-                <App />
-              </ThemeProvider>
-            </StyledEngineProvider>
-          </DrawerProvider>
-        </VideosProvider>
+        <UserProvider>
+          <VideosProvider>
+            <DrawerProvider>
+              <StyledEngineProvider injectFirst>
+                <ThemeProvider theme={theme}>
+                  <App />
+                </ThemeProvider>
+              </StyledEngineProvider>
+            </DrawerProvider>
+          </VideosProvider>
+        </UserProvider>
       </AuthProvider>
     </Router>
   </React.StrictMode>

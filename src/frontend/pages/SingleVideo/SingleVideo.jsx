@@ -7,7 +7,8 @@ import Divider from "@mui/material/Divider";
 import Icon from "@mui/material/Icon";
 
 import { Drawer } from "../../components";
-import { useDrawer, useVideos } from "../../context";
+import { useDrawer, useVideos, useAuth, useUser } from "../../context";
+import { addToHistoryService } from "../../services";
 
 const SingleVideo = () => {
   const { videoId } = useParams();
@@ -16,6 +17,17 @@ const SingleVideo = () => {
   const { videos } = useVideos();
   const video = videos.find(video => video._id === videoId);
   const { title, creatorAvatar, creator, views, description } = video;
+
+  const {
+    auth: { status, token },
+  } = useAuth();
+
+  const { userDispatch} = useUser();
+  const historyHandler = () => {
+    if (status) {
+      addToHistoryService(userDispatch, token, video);
+    }
+  };
 
   return (
     <>
@@ -34,7 +46,7 @@ const SingleVideo = () => {
               controls={true}
               height={"70vh"}
               width={isOpen ? "calc( 100vw - 282px )" : "calc( 100vw - 147px )"}
-              // onStart={recordHistoryHandler}
+              onStart={historyHandler}
             />
 
             <Box>
