@@ -13,7 +13,6 @@ const VideoList = () => {
 
   const {
     userState: { historyVideos },
-    userDispatch,
   } = useUser();
 
   let finalVideos;

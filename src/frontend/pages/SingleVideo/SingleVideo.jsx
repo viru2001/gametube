@@ -22,7 +22,7 @@ const SingleVideo = () => {
     auth: { status, token },
   } = useAuth();
 
-  const { userDispatch} = useUser();
+  const { userDispatch } = useUser();
   const historyHandler = () => {
     if (status) {
       addToHistoryService(userDispatch, token, video);

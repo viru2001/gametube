@@ -23,17 +23,17 @@ root.render(
   <React.StrictMode>
     <Router>
       <AuthProvider>
-        <UserProvider>
-          <VideosProvider>
-            <DrawerProvider>
+        <VideosProvider>
+          <DrawerProvider>
+            <UserProvider>
               <StyledEngineProvider injectFirst>
                 <ThemeProvider theme={theme}>
                   <App />
                 </ThemeProvider>
               </StyledEngineProvider>
-            </DrawerProvider>
-          </VideosProvider>
-        </UserProvider>
+            </UserProvider>
+          </DrawerProvider>
+        </VideosProvider>
       </AuthProvider>
     </Router>
   </React.StrictMode>

@@ -6,9 +6,11 @@ import Typography from "@mui/material/Typography";
 import Avatar from "@mui/material/Avatar";
 import Box from "@mui/material/Box";
 import Tooltip from "@mui/material/Tooltip";
+import { useNavigate } from "react-router";
+
 import { KebabMenu } from "../index";
 import { useDrawer } from "../../context/";
-import { useNavigate } from "react-router";
+
 const VideoCard = ({ video }) => {
   const { _id, thumbnail, title, creatorAvatar, creator, views } = video;
 
@@ -22,19 +24,22 @@ const VideoCard = ({ video }) => {
         backgroundColor: "primary.medium",
         ":hover": { cursor: "pointer" },
       }}
-      onClick={() => {
-        navigate(`/video/${_id}`);
-      }}
     >
       <CardMedia
         component="img"
         height="160"
         image={thumbnail}
         alt="green iguana"
+        sx={{
+          ":hover": { cursor: "pointer" },
+        }}
+        onClick={() => {
+          navigate(`/video/${_id}`);
+        }}
       />
       <CardContent>
         <Box sx={{ display: "flex" }}>
-          <Avatar alt="Exion" src={creatorAvatar} />
+          <Avatar alt={`${creator}'s image`} src={creatorAvatar} />
           <Box
             sx={{
               display: "flex",
@@ -44,7 +49,12 @@ const VideoCard = ({ video }) => {
             }}
           >
             <Box sx={{ display: "flex" }}>
-              <Tooltip title={title}>
+              <Tooltip
+                title={title}
+                onClick={() => {
+                  navigate(`/video/${_id}`);
+                }}
+              >
                 <Typography
                   gutterBottom
                   variant="body2"
@@ -60,7 +70,7 @@ const VideoCard = ({ video }) => {
                   {title}
                 </Typography>
               </Tooltip>
-              <KebabMenu />
+              <KebabMenu videoId={_id} />
             </Box>
             <Box
               sx={{
@@ -70,9 +80,6 @@ const VideoCard = ({ video }) => {
                 gap: "10px",
               }}
             >
-              {/* <Typography variant="body2" sx={{ color: "text.primary" }}>
-                {creator}
-              </Typography> */}
               <Box sx={{ display: "flex", mt: 1 }}>
                 <Typography variant="body2" sx={{ color: "text.primary" }}>
                   {creator}
