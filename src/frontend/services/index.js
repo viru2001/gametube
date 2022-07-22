@@ -1,3 +1,6 @@
+export { getLikedVideosService } from "./LikeVideoServices/getLikedVideosService";
+export { likedVideoService } from "./LikeVideoServices/likeVideoService";
+export { dislikeVideoService } from "./LikeVideoServices/dislikeVideoService";
 export { clearHistoryService } from "./HistoryServices/clearHistoryService";
 export { removeFromHistoryService } from "./HistoryServices/removeFromHistoryService";
 export { getUserHistoryService } from "./HistoryServices/getUserHistoryService";

@@ -1,5 +1,5 @@
 import ReactPlayer from "react-player/youtube";
-import { useParams } from "react-router";
+import { useNavigate, useParams, useLocation } from "react-router";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Avatar from "@mui/material/Avatar";
@@ -8,7 +8,11 @@ import Icon from "@mui/material/Icon";
 
 import { Drawer } from "../../components";
 import { useDrawer, useVideos, useAuth, useUser } from "../../context";
-import { addToHistoryService } from "../../services";
+import {
+  addToHistoryService,
+  likedVideoService,
+  dislikeVideoService,
+} from "../../services";
 
 const SingleVideo = () => {
   const { videoId } = useParams();
@@ -16,19 +20,37 @@ const SingleVideo = () => {
 
   const { videos } = useVideos();
   const video = videos.find(video => video._id === videoId);
-  const { title, creatorAvatar, creator, views, description } = video;
+  const { _id, title, creatorAvatar, creator, views, description } = video;
 
   const {
     auth: { status, token },
   } = useAuth();
 
-  const { userDispatch } = useUser();
+  const {
+    userState: { likedVideos },
+    userDispatch,
+  } = useUser();
   const historyHandler = () => {
     if (status) {
       addToHistoryService(userDispatch, token, video);
     }
   };
 
+  const navigate = useNavigate();
+  let location = useLocation();
+
+  const isVideoLiked = (videoId, likedVideos) =>
+    likedVideos.some(({ _id }) => _id === videoId);
+
+  const handleLikeClick = () => {
+    if (!status) {
+      navigate("/login", { state: { from: location }, replace: true });
+    } else {
+      isVideoLiked(_id, likedVideos)
+        ? dislikeVideoService(userDispatch, token, _id)
+        : likedVideoService(userDispatch, token, video);
+    }
+  };
   return (
     <>
       <Drawer
@@ -61,19 +83,28 @@ const SingleVideo = () => {
                   {creator}
                 </Typography>
                 <Box sx={{ ml: "auto", display: "flex", gap: "20px" }}>
-                  <Box sx={{ display: "flex", alignItems: "center" }}>
+                  <Box
+                    sx={{
+                      display: "flex",
+                      alignItems: "center",
+                      cursor: "pointer",
+                    }}
+                    onClick={() => handleLikeClick()}
+                  >
                     <Icon
                       className={"material-icons-outlined"}
                       color="secondary"
                     >
-                      thumb_up
+                      {isVideoLiked(_id, likedVideos)
+                        ? "thumb_down"
+                        : "thumb_up"}
                     </Icon>
                     <Typography variant="h6" my={2} ml={1}>
-                      Like
+                      {isVideoLiked(_id, likedVideos) ? "Dislike" : "Like"}
                     </Typography>
                   </Box>
 
-                  <Box sx={{ display: "flex", alignItems: "center" }}>
+                  <Box sx={{ display: "flex", alignItems: "center" , mr:4 }}>
                     <Icon
                       className={"material-icons-outlined"}
                       color="secondary"
@@ -85,7 +116,7 @@ const SingleVideo = () => {
                     </Typography>
                   </Box>
 
-                  <Box sx={{ display: "flex", alignItems: "center" }}>
+                  {/* <Box sx={{ display: "flex", alignItems: "center" }}>
                     <Icon
                       className={"material-icons-outlined"}
                       color="secondary"
@@ -95,7 +126,7 @@ const SingleVideo = () => {
                     <Typography variant="h6" my={2} ml={1}>
                       Watch Later
                     </Typography>
-                  </Box>
+                  </Box> */}
                 </Box>
               </Box>
               <Divider sx={{ borderBottomWidth: 1, bgcolor: "	#989898" }} />
