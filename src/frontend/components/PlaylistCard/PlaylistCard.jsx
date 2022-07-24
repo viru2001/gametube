@@ -4,8 +4,11 @@ import Typography from "@mui/material/Typography";
 import { Box, IconButton, Icon } from "@mui/material";
 import { deletePlaylistService } from "../../services";
 import { useAuth, useUser } from "../../context";
+import { useNavigate } from "react-router";
 
 const PlaylistCard = ({ playlist }) => {
+  const navigate = useNavigate();
+
   const {
     auth: { token },
   } = useAuth();
@@ -21,7 +24,10 @@ const PlaylistCard = ({ playlist }) => {
       }}
     >
       {videos.length > 0 ? (
-        <Box sx={{ position: "relative" }}>
+        <Box
+          sx={{ position: "relative" }}
+          onClick={() => navigate(`/playlists/${playlistId}`)}
+        >
           <CardMedia
             component="img"
             height="200"
@@ -40,12 +46,15 @@ const PlaylistCard = ({ playlist }) => {
             }}
           >
             <Typography variant="h5" sx={{ ml: "4" }}>
-              {1}
+              {videos.length}
             </Typography>
           </Box>
         </Box>
       ) : (
-        <Box sx={{ position: "relative" }}>
+        <Box
+          sx={{ position: "relative" }}
+          onClick={() => navigate(`/playlists/${playlistId}`)}
+        >
           <CardMedia component="img" height="200" width="345" />
           <Box
             sx={{
@@ -72,9 +81,7 @@ const PlaylistCard = ({ playlist }) => {
           aria-label="more"
           id="long-button"
           aria-haspopup="true"
-          onClick={() => {
-            deletePlaylistService(token, userDispatch, playlistId);
-          }}
+          onClick={() => deletePlaylistService(token, userDispatch, playlistId)}
         >
           <Icon
             className="material-icons-outlined"

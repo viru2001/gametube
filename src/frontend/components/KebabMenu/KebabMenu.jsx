@@ -5,7 +5,7 @@ import MenuItem from "@mui/material/MenuItem";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { Icon } from "@mui/material";
 import { PlaylistDialog } from "../PlaylistDialog/PlaylistDialog";
-import { useLocation, useNavigate } from "react-router";
+import { useLocation, useNavigate, useParams } from "react-router";
 import { performKebabMenuOperation } from "../../utils";
 import { useAuth, useUser, useVideos } from "../../context";
 
@@ -56,6 +56,8 @@ function KebabMenu({ videoId }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userState.watchLater]);
 
+  const { playlistId } = useParams();
+
   const handleKebabMenuOptionClicked = (
     action,
     userDispatch,
@@ -73,7 +75,7 @@ function KebabMenu({ videoId }) {
       }
     }
     if (action !== "SaveToPlaylist") {
-      performKebabMenuOperation(action, userDispatch, token, videoId, video);
+      performKebabMenuOperation(action, userDispatch, token, videoId, video,playlistId);
     }
   };
 
@@ -118,6 +120,14 @@ function KebabMenu({ videoId }) {
     },
   ];
 
+  const playlistPageMenuOptions = [
+    {
+      icon: "delete",
+      text: "Remove from Playlist",
+      action: "RemoveFromPlaylist",
+    },
+  ];
+
   let menuOptions;
   if (location === "/") {
     menuOptions = homePageMenuOptions;
@@ -127,6 +137,8 @@ function KebabMenu({ videoId }) {
     menuOptions = likedVideosPageMenuOptions;
   } else if (location === "/watch_later") {
     menuOptions = watchLaterPageMenuOptions;
+  } else {
+    menuOptions = playlistPageMenuOptions;
   }
   return (
     <div>
