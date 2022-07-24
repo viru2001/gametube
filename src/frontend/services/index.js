@@ -1,3 +1,4 @@
+export { deletePlaylistService } from "./PlaylistServices/deletePlaylistService";
 export { addToPlaylistService } from "./PlaylistServices/addToPlaylistService";
 export { removeFromPlaylistService } from "./PlaylistServices/removeFromPlaylistService ";
 export { addNewPlaylistService } from "./PlaylistServices/addNewPlaylistService";
