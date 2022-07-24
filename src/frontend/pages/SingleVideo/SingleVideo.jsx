@@ -6,15 +6,21 @@ import Avatar from "@mui/material/Avatar";
 import Divider from "@mui/material/Divider";
 import Icon from "@mui/material/Icon";
 
-import { Drawer } from "../../components";
+import { Drawer, PlaylistDialog } from "../../components";
 import { useDrawer, useVideos, useAuth, useUser } from "../../context";
 import {
   addToHistoryService,
   likedVideoService,
   dislikeVideoService,
 } from "../../services";
+import { useState } from "react";
 
 const SingleVideo = () => {
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const handlePlaylistDialogClose = () => {
+    setIsDialogOpen(false);
+  };
+
   const { videoId } = useParams();
   const [isOpen] = useDrawer();
 
@@ -50,6 +56,13 @@ const SingleVideo = () => {
         ? dislikeVideoService(userDispatch, token, _id)
         : likedVideoService(userDispatch, token, video);
     }
+  };
+
+  const handleSaveClick = () => {
+    if (!status) {
+      navigate("/login", { state: { from: location }, replace: true });
+    }
+    setIsDialogOpen(true);
   };
   return (
     <>
@@ -104,7 +117,15 @@ const SingleVideo = () => {
                     </Typography>
                   </Box>
 
-                  <Box sx={{ display: "flex", alignItems: "center" , mr:4 }}>
+                  <Box
+                    sx={{
+                      display: "flex",
+                      alignItems: "center",
+                      mr: 4,
+                      cursor: "pointer",
+                    }}
+                    onClick={() => handleSaveClick()}
+                  >
                     <Icon
                       className={"material-icons-outlined"}
                       color="secondary"
@@ -148,6 +169,12 @@ const SingleVideo = () => {
             </Box>
           </Box>
         }
+      />
+
+      <PlaylistDialog
+        open={isDialogOpen}
+        onClose={handlePlaylistDialogClose}
+        video={video}
       />
     </>
   );
