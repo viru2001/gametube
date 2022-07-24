@@ -63,12 +63,18 @@ function KebabMenu({ videoId }) {
     videoId
   ) => {
     handleClose();
-    if (action === "SaveToWatchLater") {
+
+    if (action === "SaveToWatchLater" || action === "SaveToPlaylist") {
       if (!status) {
         navigate("/login", { state: { from: location }, replace: true });
       }
+      if (action === "SaveToPlaylist") {
+        handleClickOpen();
+      }
     }
-    performKebabMenuOperation(action, userDispatch, token, videoId, video);
+    if (action !== "SaveToPlaylist") {
+      performKebabMenuOperation(action, userDispatch, token, videoId, video);
+    }
   };
 
   const location = useLocation().pathname;
@@ -155,14 +161,12 @@ function KebabMenu({ videoId }) {
             <MenuItem
               key={index}
               onClick={() =>
-                action === "SaveToPlaylist"
-                  ? handleClickOpen()
-                  : handleKebabMenuOptionClicked(
-                      action,
-                      userDispatch,
-                      token,
-                      videoId
-                    )
+                handleKebabMenuOptionClicked(
+                  action,
+                  userDispatch,
+                  token,
+                  videoId
+                )
               }
             >
               <Icon
