@@ -5,10 +5,13 @@ import MenuItem from "@mui/material/MenuItem";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { Icon } from "@mui/material";
 import { PlaylistDialog } from "../PlaylistDialog/PlaylistDialog";
+import { useLocation } from "react-router";
+import { performKebabMenuOperation } from "../../utils";
+import { useAuth, useUser } from "../../context";
 
 const ITEM_HEIGHT = 48;
 
-function KebabMenu() {
+function KebabMenu({ videoId }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const isMenuOpen = Boolean(anchorEl);
   const handleClick = event => {
@@ -27,6 +30,52 @@ function KebabMenu() {
   const handlePlaylistDialogClose = () => {
     setIsDialogOpen(false);
   };
+
+  const {
+    auth: { token },
+  } = useAuth();
+
+  const { userDispatch } = useUser();
+
+  const handleKebabMenuOptionClicked = (
+    action,
+    userDispatch,
+    token,
+    videoId
+  ) => {
+    handleClose();
+    performKebabMenuOperation(action, userDispatch, token, videoId);
+  };
+
+  const location = useLocation().pathname;
+
+  const homePageMenuOptions = [
+    {
+      icon: "watch_later",
+      text: "Save to Watch Later",
+      action: "SaveToWatchLater",
+    },
+    {
+      icon: "playlist_play",
+      text: "Save to Playlist",
+      action: "SaveToPlaylist",
+    },
+  ];
+
+  const historyPageMenuOptions = [
+    {
+      icon: "delete",
+      text: "Remove from History",
+      action: "RemoveFromHistory",
+    },
+  ];
+
+  let menuOptions;
+  if (location === "/") {
+    menuOptions = homePageMenuOptions;
+  } else if (location === "/history") {
+    menuOptions = historyPageMenuOptions;
+  }
   return (
     <div>
       <IconButton
@@ -55,24 +104,31 @@ function KebabMenu() {
           },
         }}
       >
-        <MenuItem onClick={handleClose}>
-          <Icon
-            className="material-icons-outlined"
-            sx={{ color: "text.primary", mr: 1 }}
-          >
-            {"watch_later"}
-          </Icon>
-          Save to Watch Later
-        </MenuItem>
-        <MenuItem onClick={handleClickOpen}>
-          <Icon
-            className="material-icons-outlined"
-            sx={{ color: "text.primary", mr: 1 }}
-          >
-            {"playlist_play"}
-          </Icon>
-          Save to Playlist
-        </MenuItem>
+        {menuOptions.map(({ icon, text, action }, index) => {
+          return (
+            <MenuItem
+              key={index}
+              onClick={() =>
+                action === "SaveToPlaylist"
+                  ? handleClickOpen()
+                  : handleKebabMenuOptionClicked(
+                      action,
+                      userDispatch,
+                      token,
+                      videoId
+                    )
+              }
+            >
+              <Icon
+                className="material-icons-outlined"
+                sx={{ color: "text.primary", mr: 1 }}
+              >
+                {icon}
+              </Icon>
+              {text}
+            </MenuItem>
+          );
+        })}
       </Menu>
 
       <PlaylistDialog open={isDialogOpen} onClose={handlePlaylistDialogClose} />

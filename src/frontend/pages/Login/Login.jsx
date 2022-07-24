@@ -5,7 +5,7 @@ import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import InputAdornment from "@mui/material/InputAdornment";
 import IconButton from "@mui/material/IconButton";
 import Visibility from "@mui/icons-material/Visibility";
@@ -23,6 +23,8 @@ const Login = () => {
   });
   const { setAuth } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
+  let from = location.state?.from?.pathname || -1;
 
   const loginFormSubmitHandler = async user => {
     const [name, authToken] = await loginService(user);
@@ -36,7 +38,7 @@ const Login = () => {
         username: name,
       }));
 
-      navigate("/");
+      navigate(from, { replace: true });
     }
   };
 

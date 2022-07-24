@@ -10,6 +10,7 @@ import {
   DrawerProvider,
   AuthProvider,
   VideosProvider,
+  UserProvider,
 } from "./frontend/context/";
 
 const container = document.getElementById("root");
@@ -24,11 +25,13 @@ root.render(
       <AuthProvider>
         <VideosProvider>
           <DrawerProvider>
-            <StyledEngineProvider injectFirst>
-              <ThemeProvider theme={theme}>
-                <App />
-              </ThemeProvider>
-            </StyledEngineProvider>
+            <UserProvider>
+              <StyledEngineProvider injectFirst>
+                <ThemeProvider theme={theme}>
+                  <App />
+                </ThemeProvider>
+              </StyledEngineProvider>
+            </UserProvider>
           </DrawerProvider>
         </VideosProvider>
       </AuthProvider>
