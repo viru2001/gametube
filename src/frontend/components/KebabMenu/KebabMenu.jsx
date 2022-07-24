@@ -24,6 +24,7 @@ function KebabMenu({ videoId }) {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   const handleClickOpen = () => {
+    handleClose();
     setIsDialogOpen(true);
   };
 
@@ -176,7 +177,11 @@ function KebabMenu({ videoId }) {
         })}
       </Menu>
 
-      <PlaylistDialog open={isDialogOpen} onClose={handlePlaylistDialogClose} />
+      <PlaylistDialog
+        open={isDialogOpen}
+        onClose={handlePlaylistDialogClose}
+        video={video}
+      />
     </div>
   );
 }

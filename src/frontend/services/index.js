@@ -1,3 +1,7 @@
+export { addToPlaylistService } from "./PlaylistServices/addToPlaylistService";
+export { removeFromPlaylistService } from "./PlaylistServices/removeFromPlaylistService ";
+export { addNewPlaylistService } from "./PlaylistServices/addNewPlaylistService";
+export { getUserPlaylistsService } from "./PlaylistServices/getUserPlaylistsService";
 export { getWatchLaterService } from "./WatchLaterServices/getWatchLaterService";
 export { addToWatchLaterService } from "./WatchLaterServices/addToWatchLaterService";
 export { removeFromWatchLaterService } from "./WatchLaterServices/removeFromWatchLaterService";

@@ -12,21 +12,27 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 
 import { PlaylistList } from "../index";
+import { useAuth, useUser } from "../../context";
+import { addNewPlaylistService } from "../../services";
 
-const playlists = ["gaming", "valorant", "vlogs", "music"];
+// const playlists = ["gaming", "valorant", "vlogs", "music"];
 
-function PlaylistDialog(props) {
-  const { onClose, open } = props;
-
+function PlaylistDialog({ onClose, open, video }) {
   const [isCreateBtnClicked, setIsCreateBtnClicked] = useState(false);
+  const [playlistName, setPlaylistName] = useState("");
+
+  const {
+    auth: { token },
+  } = useAuth();
+
+  const {
+    userState: { playlists },
+    userDispatch,
+  } = useUser();
 
   const handleClose = () => {
     onClose();
   };
-
-  // const handleListItemClick = value => {
-  //   onClose(value);
-  // };
 
   return (
     <Dialog onClose={handleClose} open={open}>
@@ -34,13 +40,12 @@ function PlaylistDialog(props) {
         Add to Playlist
       </DialogTitle>
       <List sx={{ pt: 0, backgroundColor: "primary.main" }}>
-        <PlaylistList playlists={playlists} />
+        <PlaylistList playlists={playlists} video={video} />
 
         {!isCreateBtnClicked && (
           <ListItem
             autoFocus
             button
-            // onClick={() => handleListItemClick()}
           >
             <ListItemAvatar>
               <Avatar
@@ -75,6 +80,8 @@ function PlaylistDialog(props) {
               bgcolor: "primary.faint",
               m: 1,
             }}
+            value={playlistName}
+            onChange={e => setPlaylistName(e.target.value)}
           />
           <Button
             variant="contained"
@@ -82,6 +89,7 @@ function PlaylistDialog(props) {
             sx={{ m: 1 }}
             onClick={() => {
               setIsCreateBtnClicked(false);
+              addNewPlaylistService(playlistName, token, userDispatch);
             }}
           >
             Create

@@ -3,6 +3,7 @@ import { userReducer, userInitialState } from "../reducers/";
 import {
   getLikedVideosService,
   getUserHistoryService,
+  getUserPlaylistsService,
   getWatchLaterService,
 } from "../services";
 import { useAuth } from "./";
@@ -20,6 +21,7 @@ const UserProvider = ({ children }) => {
       getUserHistoryService(token, userDispatch);
       getLikedVideosService(token, userDispatch);
       getWatchLaterService(token, userDispatch);
+      getUserPlaylistsService(token, userDispatch);
     }
   }, [status, token]);
 
