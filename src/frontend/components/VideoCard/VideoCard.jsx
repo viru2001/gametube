@@ -8,22 +8,22 @@ import Box from "@mui/material/Box";
 import Tooltip from "@mui/material/Tooltip";
 import { KebabMenu } from "../index";
 import { useDrawer } from "../../context/";
+import { useNavigate } from "react-router";
 const VideoCard = ({ video }) => {
-  const {
-    thumbnail,
-    title,
-    creatorAvatar,
-    creator,
-    views,
-  } = video;
+  const { _id, thumbnail, title, creatorAvatar, creator, views } = video;
 
   const [isOpen] = useDrawer();
+  const navigate = useNavigate();
+
   return (
     <Card
       sx={{
         maxWidth: 345,
         backgroundColor: "primary.medium",
         ":hover": { cursor: "pointer" },
+      }}
+      onClick={() => {
+        navigate(`/video/${_id}`);
       }}
     >
       <CardMedia

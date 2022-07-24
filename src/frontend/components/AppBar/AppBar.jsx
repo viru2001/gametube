@@ -7,7 +7,7 @@ import MuiAppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import { styled } from "@mui/material/styles";
 import { SearchBox } from "../index";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 import { useAuth } from "../../context";
 
@@ -44,6 +44,8 @@ const AppBar = ({ open, handleDrawerClose, handleDrawerOpen }) => {
     }));
   };
 
+  const location = useLocation().pathname;
+
   return (
     <MyAppBar position="fixed">
       <Box sx={{ display: "flex" }}>
@@ -63,7 +65,7 @@ const AppBar = ({ open, handleDrawerClose, handleDrawerOpen }) => {
             GameTube
           </Typography>
         </Toolbar>
-        <SearchBox />
+        {location === "/" ? <SearchBox /> : <></>}
 
         <Box
           sx={{
@@ -73,7 +75,7 @@ const AppBar = ({ open, handleDrawerClose, handleDrawerOpen }) => {
           }}
         >
           {status ? (
-            <Box sx={{ display: "flex" ,gap:"10px"}}>
+            <Box sx={{ display: "flex", gap: "10px" }}>
               <Button
                 variant="contained"
                 sx={{

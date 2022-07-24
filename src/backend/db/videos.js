@@ -349,4 +349,131 @@ RakaZone Gaming Socials •
 ► SUBSCRIBE AND FOLLOW!
 Instagram: https://www.instagram.com/tbonegaming`,
   },
+  {
+    _id: "VRmNlL84ceA",
+    thumbnail: "https://i.ytimg.com/vi/VRmNlL84ceA/mqdefault.jpg",
+    title: "GTA 5 ROLE PLAY LIVESTREAM VLTRP JOSEPH CHACHA",
+    creatorAvatar:
+      "https://yt3.ggpht.com/M2dCsLTBPiSwoDUGR1UV9xigwZJyki5IevleZv2QcQnI417ERnnSZ5BOWCo2drwM6yiWizkJ=s48-c-k-c0x00ffffff-no-rj",
+    creator: "TbOne",
+    views: "122K",
+    category: "Roleplay",
+    description: ` #GTA5 #GTA5RP #VLTRP
+💲 Sponsor • https://www.youtube.com/TbOneTV Click on Join
+💲 Donation Via PayPal • https://streamlabs.com/tbonegaming
+• Check out the latest line-up of RedGear peripherals: https://www.amazon.in/shop/tbone
+• ROG is World's premier Gaming Laptop Brand, Know more: https://rog.asus.com/in/laptops-group
+🕹️ Loco • https://loco.onelink.me/65Kg/TbOneTV
+📷 Instagram • https://www.instagram.com/tbonegaming
+🕊️ Twitter • https://twitter.com/tbonegamng
+👍  FB Page • https://www.facebook.com/TbOneGaming
+
+🖥️ PC Specs
+• Intel® Core™ i7-8700K Processor
+• ASRock Z370 Taichi
+• Cooler Master V1000 Fully Modular 80 PLUS Gold
+• ADATA XPG D40 DDR4 RGB 3200MHz (8*4) 
+• Phanteks Enthoo Evolv ATX - Silver
+• Samsung 970 Evo Series 250GB PCIE NVME - M.2
+• Seagate 2TB Firecuda 
+• Cooler Master MasterLiquid ML240R All-in-one
+• ZOTAC GAMING GeForce RTX 3080 Ti AMP Extreme Holo RESIDENT EVIL
+
+🖥️ Streaming PC specs
+• CPU: i5 6600K 3.3GHZ 
+• M/B: GIGABYTE H110
+• GPU: GIGABYTE G1 GAMING 1060 6GB
+• RAM: 16GB DDR4 Corsair Vengeance
+• STORAGE: WD 1 TB Blue & WD 120GB SSD
+• ELGATO HD60 Capture card.
+
+💰 Benefits Of Being A Sponsor 💰
+
+• Get's a custom badge & Emoji's 
+• Access to member only streams. 
+• Participate in Sponsor's only Giveaway's.
+• The OnlyFrands Sponsor will have access to exclusive whats app group
+
+About TbOne 👦🏻
+
+• Shobith Rai
+• 30
+• Bangalore, India`,
+  },
+  {
+    _id: "6I1z7Ixq1Jo",
+    thumbnail: "https://i.ytimg.com/vi/6I1z7Ixq1Jo/mqdefault.jpg",
+    title: "Only wins today I Valorant live stream w OG CaspeR ",
+    creatorAvatar:
+      "https://yt3.ggpht.com/wZvcqr36Il2tIIRAWNix1VzfQiRM3U6uK9np4H-OIv-8605IwqIWKPkSIVHX8_f5WovJXsOkpQ=s48-c-k-c0x00ffffff-no-rj",
+    creator: "CaspeR",
+    views: "10K",
+    category: "FPS",
+    description: `★https://linktr.ee/AMDgaminguniverse
+★MD Computers: https://mdcomputers.in/aorus-premier-...
+Support the stream: https://streamlabs.com/casper68 Neha ( Casper )  Sottany
+Professional Esports Athlete / Orangutan.gg
+:━━━━━━━━━━━━━━━━━━━━:
+★My Achievements-
+★ Runners Up Legion of Valkyrie 2019 ( Thailand )
+★Runners Up of Legion of Valkyrie 2021  ( India )
+★Runners Up of Aorus Showstopper Series Valorant (Team 4)
+★ Champions of AMD presents Streamer Quest ( Team Charlie )
+★Champions of Aorus Premier League ( MD Computers )
+:━━━━━━━━━━━━━━━━━━━━:
+★TWITTER - https://twitter.com/CaspeRMineK
+★INSTAGRAM -​https://www.instagram.com/casperminek/
+★Discord - https://discord.gg/tpWUxvgaMG
+★Donate through upi - sottanyneha@okhdfcbank
+★STEAM LINK - https://steamcommunity.com/profiles/7...
+★FACEBOOK - https://www.facebook.com/neha.sottany
+★BUSINESS MAIL- sottanyneha@gmail.com
+:━━━━━━━━━━━━━━━━━━━━:`,
+  },
+  {
+    _id: "JqJfNTO4dkI",
+    thumbnail: "https://i.ytimg.com/vi/JqJfNTO4dkI/mqdefault.jpg",
+    title: "Viper Smoke Demon 😈 | Best Viper Outplays India",
+    creatorAvatar:
+      "https://yt3.ggpht.com/ytc/AKedOLRwXwUhslr89z7MMMHw19ARf2kHTFSMn8mS8DcrOg=s48-c-k-c0x00ffffff-no-rj",
+    creator: "Harsh Khelraay",
+    views: "19K",
+    category: "FPS",
+    description: `Edited By : https://www.instagram.com/4man_vfx/
+                   https://twitter.com/4man_vfx
+Discord : https://discord.gg/sbvq5GU5YX
+My Instagram : https://www.instagram.com/iam_harsh__/
+Social Media Handles : ( Link tree )  https://linktr.ee/iam_harsh__
+
+Donation Via UPI : harshsalunkheh@oksbi
+
+Check out the best of RedGear gaming peripherals here: www.amazon.in/redgear
+
+Choosing the right GPU and getting it at the right price can get really tricky. Thanks to Colorful’s wide range of GPUs and their remarkable customer service, there’s one thing you can tick off your checklist easily. Go check them out: https://en.colorful.cn/product.aspx?m...
+
+Exit Lag : Fix your high ping and lag ! Get exitlag Free for 3 days ! http://exitl.ag/harsh​​​​ 
+Use code " harsh " to get 20 % OFF !
+
+
+Check out my rig ! 
+CPU - https://www.amazon.in/dp/B07SXMZLPK?t...
+GPU - Colorful RTX 3070
+RAM - 24 GB Corsair 3000 MHZ : https://www.amazon.in/dp/B07W8ZDDKT?t...
+Monitor - Acer kg241q 144 Hz
+Handcam - https://www.amazon.in/dp/B08DCGTS91?t...
+Earphones - https://www.amazon.in/Redgear-CEB-150...
+Keyboard - https://www.amazon.in/dp/B08T28HSDN?t...
+Mouse ( Redgear ) - https://www.amazon.in/dp/B09FLD6BJN?t...
+Mouse - https://www.amazon.in/dp/B084W6W9WB?t...
+Phone - https://www.amazon.in/dp/B07PKTGR91?t...
+Cabinet - https://www.amazon.in/dp/B07VCK2M9T?t...
+Mousepad - https://www.amazon.in/dp/B07J68QGR6?t...
+Hand sleeves : https://www.amazon.in/dp/B07D5DKZDY?t...
+Mic : https://www.amazon.in/dp/B09374KTPK?t...
+Monitor Arm : https://www.amazon.in/dp/B076B3Q8JR?t...
+Graphics Tablet : https://www.amazon.in/dp/B017ATNRTY?t...
+Water Bottle : https://www.amazon.in/dp/B07TVD8183?t...
+_
+#valorant #vipervalorant`,
+  },
 ];
