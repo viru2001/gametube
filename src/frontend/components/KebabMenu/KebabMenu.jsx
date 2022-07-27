@@ -70,11 +70,21 @@ function KebabMenu({ videoId }) {
     },
   ];
 
+  const likedVideosPageMenuOptions = [
+    {
+      icon: "thumb_down",
+      text: "Dislike",
+      action: "DislikeVideo",
+    },
+  ];
+
   let menuOptions;
   if (location === "/") {
     menuOptions = homePageMenuOptions;
   } else if (location === "/history") {
     menuOptions = historyPageMenuOptions;
+  } else if (location === "/liked_videos") {
+    menuOptions = likedVideosPageMenuOptions;
   }
   return (
     <div>

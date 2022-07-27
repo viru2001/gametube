@@ -13,6 +13,7 @@ const Router = () => {
 
       <Route element={<PrivateRoutes />}>
         <Route path="/history" element={<Home />} />
+        <Route path="/liked_videos" element={<Home />} />
       </Route>
     </Routes>
   );

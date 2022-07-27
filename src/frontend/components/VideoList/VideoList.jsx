@@ -16,7 +16,7 @@ const VideoList = () => {
   const { videos, searchQuery, selectedCategory, videosDispatch } = useVideos();
 
   const {
-    userState: { historyVideos },
+    userState: { historyVideos, likedVideos },
     userDispatch,
   } = useUser();
 
@@ -59,6 +59,8 @@ const VideoList = () => {
     finalVideos = filteredVideos;
   } else if (location === "/history") {
     finalVideos = historyVideos;
+  } else if (location === "/liked_videos") {
+    finalVideos = likedVideos;
   }
   return (
     <Box
