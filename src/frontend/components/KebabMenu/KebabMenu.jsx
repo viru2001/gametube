@@ -1,18 +1,18 @@
-import * as React from "react";
+import { useState, useEffect } from "react";
 import IconButton from "@mui/material/IconButton";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { Icon } from "@mui/material";
 import { PlaylistDialog } from "../PlaylistDialog/PlaylistDialog";
-import { useLocation } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 import { performKebabMenuOperation } from "../../utils";
-import { useAuth, useUser } from "../../context";
+import { useAuth, useUser, useVideos } from "../../context";
 
 const ITEM_HEIGHT = 48;
 
 function KebabMenu({ videoId }) {
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [anchorEl, setAnchorEl] = useState(null);
   const isMenuOpen = Boolean(anchorEl);
   const handleClick = event => {
     setAnchorEl(event.currentTarget);
@@ -21,7 +21,7 @@ function KebabMenu({ videoId }) {
     setAnchorEl(null);
   };
 
-  const [isDialogOpen, setIsDialogOpen] = React.useState(false);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   const handleClickOpen = () => {
     setIsDialogOpen(true);
@@ -31,11 +31,29 @@ function KebabMenu({ videoId }) {
     setIsDialogOpen(false);
   };
 
+  const navigate = useNavigate();
   const {
-    auth: { token },
+    auth: { status, token },
   } = useAuth();
 
-  const { userDispatch } = useUser();
+  const { userState, userDispatch } = useUser();
+
+  const { videos } = useVideos();
+  const video = videos.find(video => video._id === videoId);
+
+  const checkVideoInWatchLater = (videoId, watchLater) =>
+    watchLater.some(({ _id }) => _id === videoId);
+
+  const [isVideoInWatchLater, setIsVideoInWatchLater] = useState(false);
+
+  useEffect(() => {
+    if (status) {
+      setIsVideoInWatchLater(
+        checkVideoInWatchLater(videoId, userState.watchLater)
+      );
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [userState.watchLater]);
 
   const handleKebabMenuOptionClicked = (
     action,
@@ -44,7 +62,12 @@ function KebabMenu({ videoId }) {
     videoId
   ) => {
     handleClose();
-    performKebabMenuOperation(action, userDispatch, token, videoId);
+    if (action === "SaveToWatchLater") {
+      if (!status) {
+        navigate("/login", { state: { from: location }, replace: true });
+      }
+    }
+    performKebabMenuOperation(action, userDispatch, token, videoId, video);
   };
 
   const location = useLocation().pathname;
@@ -52,8 +75,10 @@ function KebabMenu({ videoId }) {
   const homePageMenuOptions = [
     {
       icon: "watch_later",
-      text: "Save to Watch Later",
-      action: "SaveToWatchLater",
+      text: isVideoInWatchLater
+        ? "Remove From Watch Later"
+        : "Save to Watch Later",
+      action: isVideoInWatchLater ? "RemoveFromWatchLater" : "SaveToWatchLater",
     },
     {
       icon: "playlist_play",
@@ -78,6 +103,14 @@ function KebabMenu({ videoId }) {
     },
   ];
 
+  const watchLaterPageMenuOptions = [
+    {
+      icon: "delete",
+      text: "Remove from Watch Later",
+      action: "RemoveFromWatchLater",
+    },
+  ];
+
   let menuOptions;
   if (location === "/") {
     menuOptions = homePageMenuOptions;
@@ -85,6 +118,8 @@ function KebabMenu({ videoId }) {
     menuOptions = historyPageMenuOptions;
   } else if (location === "/liked_videos") {
     menuOptions = likedVideosPageMenuOptions;
+  } else if (location === "/watch_later") {
+    menuOptions = watchLaterPageMenuOptions;
   }
   return (
     <div>

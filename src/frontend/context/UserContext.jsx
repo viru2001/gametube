@@ -1,6 +1,10 @@
 import { createContext, useContext, useReducer, useEffect } from "react";
 import { userReducer, userInitialState } from "../reducers/";
-import { getLikedVideosService, getUserHistoryService } from "../services";
+import {
+  getLikedVideosService,
+  getUserHistoryService,
+  getWatchLaterService,
+} from "../services";
 import { useAuth } from "./";
 
 const UserContext = createContext();
@@ -15,6 +19,7 @@ const UserProvider = ({ children }) => {
     if (status) {
       getUserHistoryService(token, userDispatch);
       getLikedVideosService(token, userDispatch);
+      getWatchLaterService(token, userDispatch);
     }
   }, [status, token]);
 
