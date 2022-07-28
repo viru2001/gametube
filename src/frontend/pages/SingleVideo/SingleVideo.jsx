@@ -102,7 +102,7 @@ const SingleVideo = () => {
                       alignItems: "center",
                       cursor: "pointer",
                     }}
-                    onClick={() => handleLikeClick()}
+                    onClick={handleLikeClick}
                   >
                     <Icon
                       className={"material-icons-outlined"}
