@@ -2,6 +2,7 @@ const userInitialState = {
   historyVideos: [],
   likedVideos: [],
   watchLater: [],
+  playlists: [],
 };
 
 const userReducer = (userState, { type, payload }) => {
@@ -22,6 +23,15 @@ const userReducer = (userState, { type, payload }) => {
       };
     case "UPDATE_WATCH_LATER":
       return { ...userState, watchLater: [...payload] };
+    case "SET_PLAYLISTS":
+      return { ...userState, playlists: payload };
+    case "UPDATE_PLAYLIST":
+      return {
+        ...userState,
+        playlists: userState.playlists.map(playlist =>
+          playlist._id === payload._id ? payload : playlist
+        ),
+      };
     default:
       return userState;
   }

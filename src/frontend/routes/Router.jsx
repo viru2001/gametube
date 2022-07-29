@@ -15,6 +15,8 @@ const Router = () => {
         <Route path="/history" element={<Home />} />
         <Route path="/liked_videos" element={<Home />} />
         <Route path="/watch_later" element={<Home />} />
+        <Route path="/playlists" element={<Home />} />
+        <Route path="/playlists/:playlistId" element={<Home />} />
       </Route>
     </Routes>
   );

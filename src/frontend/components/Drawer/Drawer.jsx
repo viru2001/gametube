@@ -82,7 +82,7 @@ const Drawer = ({ content }) => {
             { text: "Watch Later", icon: "watch_later", url: "/watch_later" },
             { text: "Liked Videos", icon: "thumb_up", url: "/liked_videos" },
             { text: "History", icon: "history", url: "/history" },
-            { text: "Playlists", icon: "playlist_play", url: "/playlist" },
+            { text: "Playlists", icon: "playlist_play", url: "/playlists" },
           ].map(({ text, icon, url }, index) => (
             <ListItem
               key={index}

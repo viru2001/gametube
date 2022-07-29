@@ -5,7 +5,7 @@ import MenuItem from "@mui/material/MenuItem";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { Icon } from "@mui/material";
 import { PlaylistDialog } from "../PlaylistDialog/PlaylistDialog";
-import { useLocation, useNavigate } from "react-router";
+import { useLocation, useNavigate, useParams } from "react-router";
 import { performKebabMenuOperation } from "../../utils";
 import { useAuth, useUser, useVideos } from "../../context";
 
@@ -24,6 +24,7 @@ function KebabMenu({ videoId }) {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   const handleClickOpen = () => {
+    handleClose();
     setIsDialogOpen(true);
   };
 
@@ -55,6 +56,8 @@ function KebabMenu({ videoId }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userState.watchLater]);
 
+  const { playlistId } = useParams();
+
   const handleKebabMenuOptionClicked = (
     action,
     userDispatch,
@@ -62,12 +65,18 @@ function KebabMenu({ videoId }) {
     videoId
   ) => {
     handleClose();
-    if (action === "SaveToWatchLater") {
+
+    if (action === "SaveToWatchLater" || action === "SaveToPlaylist") {
       if (!status) {
         navigate("/login", { state: { from: location }, replace: true });
       }
+      if (action === "SaveToPlaylist") {
+        handleClickOpen();
+      }
     }
-    performKebabMenuOperation(action, userDispatch, token, videoId, video);
+    if (action !== "SaveToPlaylist") {
+      performKebabMenuOperation(action, userDispatch, token, videoId, video,playlistId);
+    }
   };
 
   const location = useLocation().pathname;
@@ -111,6 +120,14 @@ function KebabMenu({ videoId }) {
     },
   ];
 
+  const playlistPageMenuOptions = [
+    {
+      icon: "delete",
+      text: "Remove from Playlist",
+      action: "RemoveFromPlaylist",
+    },
+  ];
+
   let menuOptions;
   if (location === "/") {
     menuOptions = homePageMenuOptions;
@@ -120,6 +137,8 @@ function KebabMenu({ videoId }) {
     menuOptions = likedVideosPageMenuOptions;
   } else if (location === "/watch_later") {
     menuOptions = watchLaterPageMenuOptions;
+  } else {
+    menuOptions = playlistPageMenuOptions;
   }
   return (
     <div>
@@ -154,14 +173,12 @@ function KebabMenu({ videoId }) {
             <MenuItem
               key={index}
               onClick={() =>
-                action === "SaveToPlaylist"
-                  ? handleClickOpen()
-                  : handleKebabMenuOptionClicked(
-                      action,
-                      userDispatch,
-                      token,
-                      videoId
-                    )
+                handleKebabMenuOptionClicked(
+                  action,
+                  userDispatch,
+                  token,
+                  videoId
+                )
               }
             >
               <Icon
@@ -176,7 +193,11 @@ function KebabMenu({ videoId }) {
         })}
       </Menu>
 
-      <PlaylistDialog open={isDialogOpen} onClose={handlePlaylistDialogClose} />
+      <PlaylistDialog
+        open={isDialogOpen}
+        onClose={handlePlaylistDialogClose}
+        video={video}
+      />
     </div>
   );
 }

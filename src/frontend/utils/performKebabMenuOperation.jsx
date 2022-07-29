@@ -3,6 +3,7 @@ import {
   dislikeVideoService,
   addToWatchLaterService,
   removeFromWatchLaterService,
+  removeFromPlaylistService,
 } from "../services";
 
 const performKebabMenuOperation = (
@@ -10,7 +11,8 @@ const performKebabMenuOperation = (
   userDispatch,
   token,
   videoId,
-  video
+  video,
+  playlistId
 ) => {
   if (action === "RemoveFromHistory") {
     removeFromHistoryService(userDispatch, token, videoId);
@@ -20,6 +22,8 @@ const performKebabMenuOperation = (
     addToWatchLaterService(userDispatch, token, video);
   } else if (action === "RemoveFromWatchLater") {
     removeFromWatchLaterService(userDispatch, token, videoId);
+  } else if (action === "RemoveFromPlaylist") {
+    removeFromPlaylistService(userDispatch, token, playlistId, videoId);
   }
 };
 export { performKebabMenuOperation };

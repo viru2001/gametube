@@ -1,5 +1,5 @@
 import { VideoCard, Chips } from "../index";
-import { Grid, Box, Button } from "@mui/material";
+import { Grid, Box, Button, Typography } from "@mui/material";
 import { useEffect } from "react";
 
 import { useVideos, useUser, useAuth } from "../../context";
@@ -10,13 +10,15 @@ import {
   clearHistoryService,
 } from "../../services";
 import { getFilteredVideos, getSearchedVideos } from "../../utils";
-import { useLocation } from "react-router";
+import { useLocation, useParams } from "react-router";
 
 const VideoList = () => {
   const { videos, searchQuery, selectedCategory, videosDispatch } = useVideos();
 
+  const { playlistId } = useParams();
+
   const {
-    userState: { historyVideos, likedVideos, watchLater },
+    userState: { historyVideos, likedVideos, watchLater, playlists },
     userDispatch,
   } = useUser();
 
@@ -64,6 +66,13 @@ const VideoList = () => {
   } else if (location === "/watch_later") {
     finalVideos = watchLater;
   }
+
+  const playlist = playlists.find(item => item._id === playlistId);
+
+  if (playlistId !== undefined) {
+    finalVideos = playlist.videos;
+  }
+
   return (
     <Box
       component="main"
@@ -89,6 +98,11 @@ const VideoList = () => {
         >
           Clear History
         </Button>
+      ) : (
+        <></>
+      )}
+      {playlistId !== undefined ? (
+        <Typography variant="h5" sx={{mb:3}}>{`Playlist : ${playlist.title}`}</Typography>
       ) : (
         <></>
       )}
