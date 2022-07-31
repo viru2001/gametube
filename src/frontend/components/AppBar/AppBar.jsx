@@ -9,7 +9,7 @@ import { styled } from "@mui/material/styles";
 import { SearchBox } from "../index";
 import { useNavigate, useLocation } from "react-router-dom";
 
-import { useAuth } from "../../context";
+import { useAuth, useUser } from "../../context";
 
 const MyAppBar = styled(MuiAppBar)(({ theme }) => ({
   zIndex: theme.zIndex.drawer + 1,
@@ -23,15 +23,12 @@ const AppBar = ({ open, handleDrawerClose, handleDrawerOpen }) => {
   const navigate = useNavigate();
   const loginHandler = () => navigate("/login");
 
-  // const {
-  //   auth: { status, username },
-  //   setAuth,
-  // } = useAuth();
-
   const {
     auth: { status, username },
     setAuth,
   } = useAuth();
+
+  const { userDispatch } = useUser();
 
   const logoutHandler = setAuth => {
     localStorage.removeItem("AUTH_TOKEN");
@@ -42,6 +39,7 @@ const AppBar = ({ open, handleDrawerClose, handleDrawerOpen }) => {
       token: null,
       username: "",
     }));
+    userDispatch({ type: "LOGOUT" });
   };
 
   const location = useLocation().pathname;

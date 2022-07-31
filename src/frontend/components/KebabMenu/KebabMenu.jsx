@@ -52,6 +52,8 @@ function KebabMenu({ videoId }) {
       setIsVideoInWatchLater(
         checkVideoInWatchLater(videoId, userState.watchLater)
       );
+    } else {
+      setIsVideoInWatchLater(false);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userState.watchLater]);
@@ -75,7 +77,14 @@ function KebabMenu({ videoId }) {
       }
     }
     if (action !== "SaveToPlaylist") {
-      performKebabMenuOperation(action, userDispatch, token, videoId, video,playlistId);
+      performKebabMenuOperation(
+        action,
+        userDispatch,
+        token,
+        videoId,
+        video,
+        playlistId
+      );
     }
   };
 

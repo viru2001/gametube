@@ -32,6 +32,13 @@ const userReducer = (userState, { type, payload }) => {
           playlist._id === payload._id ? payload : playlist
         ),
       };
+    case "LOGOUT":
+      return {
+        historyVideos: [],
+        likedVideos: [],
+        watchLater: [],
+        playlists: [],
+      };
     default:
       return userState;
   }
